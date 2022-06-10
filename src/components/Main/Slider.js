@@ -6,14 +6,15 @@ import { base_url } from 'API/Url';
 
 const Container = styled.div`
     position: relative;
-    width: calc(224px * 5);
+    width: calc(210px * 5);
+
     height: auto;
     overflow: hidden;
 `;
 
 const SliderContainer = styled.div`
-    width: 220px;
-    height: 350px;
+    width: 200px;
+    height: 400px;
     display: flex;
 `;
 
@@ -47,8 +48,9 @@ const ButtonNext = styled.button`
     }
 `;
 
+// hover 이벤트 하려고 하는데 적용이 안됌 ㅜㅜㅜ
 const BTN = styled.button`
-     display: none;
+    //  display: none;
      background-color: pink;
 
     .title:hover + .btn_detail {
@@ -69,7 +71,7 @@ function Slider(props) {
 
     const files = props.arr;
     const paging_size = 5;
-    const TOTAL_SLIDES = (files.length) / paging_size;
+    const TOTAL_SLIDES = (files.length);
 
 
     const handleNext = () => {
@@ -104,39 +106,37 @@ function Slider(props) {
         <>
             <Container>
                 {(!(files.length === 0)) ? (
-                    <div style={{ textAlign: "center" }}>
-                        <SliderContainer id="slider" >
-                            {files.map((img, id) =>
-                                <Box sx={{ display: "block", border: "2px solid #F75690;", borderRadius: "10px" }}>
-                                    <Link to={{
-                                        pathname: `/detail/${id}`,
-                                        state: { index: id }
-                                    }} style={{ textDecoration: "none", color: "black" }}>
-                                        <IMG class="imgdiv" src={base_url + img.image} key={id}
-                                            style={{ width: '220px', height: "250px", display: "block" }}
-                                            alt={img.title}
-                                        />
-                                    </Link>
-                                    <h4 class="title" style={{ display: "block" }}>{img.title}</h4>
-                                    <h6 style={{ display: "block" }}>예매율 {img.rate}</h6>
-                                    <Link to={{
-                                        pathname: `/detail/${id}`,
-                                        state: { index: id }
-                                    }}
-                                        style={{ textDecoration: "none", color: "black" }}>
-                                        <BTN class="btn_detail">상세보기</BTN>
-                                    </Link>
-                                    <Link to={{
-                                        pathname: `/detail/${id}`,
-                                        state: { index: id }
-                                    }}
-                                        style={{ textDecoration: "none", color: "black" }}>
-                                        <BTN class="btn_detail">예매하기</BTN>
-                                    </Link>
-                                </Box>
-                            )}
-                        </SliderContainer>
-                    </div>
+                    <SliderContainer id="slider" style={{ textAlign: "center" }} >
+                        {files.map((img, id) =>
+                            <Box sx={{ display: "block", border: "2px solid #F75690;", borderRadius: "10px"}}>
+                                <Link to={{
+                                    pathname: `/detail/${id}`,
+                                    state: { index: id }
+                                }} style={{ textDecoration: "none", color: "black" }}>
+                                    <IMG class="imgdiv" src={img.image} key={id}
+                                        style={{ width: '200px', height: "250px", display: "block" }}
+                                        alt={img.title}
+                                    />
+                                </Link>
+                                <h4 class="title" style={{ display: "block" }}>{img.title}</h4>
+                                <h6 style={{ display: "block" }}>예매율 {img.reservation} | 평점 {img.rate}</h6>
+                                <Link to={{
+                                    pathname: `/detail/${id}`,
+                                    state: { index: id }
+                                }}
+                                    style={{ textDecoration: "none", color: "black" }}>
+                                    <BTN class="btn_detail">상세보기</BTN>
+                                </Link>
+                                <Link to={{
+                                    pathname: `/detail/${id}`,
+                                    state: { index: id }
+                                }}
+                                    style={{ textDecoration: "none", color: "black" }}>
+                                    <BTN class="btn_detail">예매하기</BTN>
+                                </Link>
+                            </Box>
+                        )}
+                    </SliderContainer>
                 ) : (
                     <div>이미지 없음</div>
                 )}

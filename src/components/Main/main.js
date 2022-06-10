@@ -26,20 +26,14 @@ const Main = () => {
                 <Container>
                     <Box class="contents">
                         <Box class="movieChartBeScreen_btn_wrap" sx={{ display: "block" }}>
-                            <Box class="tabBtn_wrap">
-                                <h3>
-                                    <a href="#none" style={{ textDecoration: 'none', color: "black" }}>현재상영작</a>
-                                </h3>
-                            </Box>
+                            <h3>
+                                <a href="#none" style={{ textDecoration: 'none', color: "black" }}>현재상영작</a>
+                            </h3>
                             <a href="/allmovie" style={{ textDecoration: 'none', color: "black", float: "right" }}>
                                 <Button color="secondary" variant="contained" sx={{ marginBottom: 2 }}>전체보기</Button>
                             </a>
                         </Box>
-                        <Box>
-                            <Box>
-                                <Slider arr={getBody.data}></Slider>
-                            </Box>
-                        </Box>
+                        <Slider arr={getBody.data}></Slider>
                     </Box>
                 </Container>
             </ThemeProvider >

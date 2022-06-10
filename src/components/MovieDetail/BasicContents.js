@@ -21,10 +21,11 @@ const MovieDetail = (props) => {
                         width: '20%',
                         height: '100%',
                         display: "grid",
+                        paddingRight: 5,
                     }}>
                     {(image != null) ?
                         <img
-                            src={base_url + image}
+                            src={image}
                             style={{
                                 width: "220px",
                                 height: "290px",
