@@ -82,7 +82,7 @@ const Header = () => {
                 ) : (
                     <StyledUl>
                         <StyledLi>
-                            <a href='/movie' style={{ textDecoration: 'none'}}>
+                            <a href='/allmovie' style={{ textDecoration: 'none'}}>
                                 <span>영화</span>
                             </a>
                         </StyledLi>

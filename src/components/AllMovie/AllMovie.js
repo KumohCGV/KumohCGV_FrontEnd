@@ -1,16 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Api from 'API/Api';
-import styled from "styled-components";
-import { TextField, Box, Grid, Divider, Container, InputLabel, Button, MenuItem, FormControl, Select } from '@mui/material';
+import { TextField, Box, Grid, Divider, Container, InputLabel, Button, MenuItem, FormControl, Select, Radio, RadioGroup, FormControlLabel, FormLabel } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import MovieCard from "components/AllMovie/MovieCard"
 import SearchIcon from '@mui/icons-material/Search';
-
-const StyledImg = styled.img`
-    width: 70%;
-    max-width: 150px;
-   min-width: 30px;
-`;
 
 const theme = createTheme({
     palette: {
@@ -19,7 +12,7 @@ const theme = createTheme({
             // main: '#000000',
         },
         secondary: {
-            main: '#ef1120',
+            main: '#BF2828',
         },
         white: {
             main: '#FFFFFF',
@@ -28,11 +21,13 @@ const theme = createTheme({
 });
 
 const AllMovie = () => {
-    const [order, setOrder] = useState(''); // 정렬순: 예매율순, 평점순
+    const [order, setOrder] = useState('ticketRate,des'); // 정렬순: 예매율순, 평점순
     const [movieTitle, setMovieTitle] = useState('');
     const [movieActor, setMovieActor] = useState('');
 
     const [getBody, setGetBody] = useState([]);
+
+    const [value, setValue] = useState('영화제목');
 
     const resMovie = async () => await Api.getAllMovie(order);
 
@@ -41,12 +36,16 @@ const AllMovie = () => {
             const movieBody = await resMovie();
             console.log(movieBody);
             setGetBody(movieBody.data.data.content);
-          }
-          getData();
+        }
+        getData();
     }, []);
 
     const handleChange = (event) => {
         setOrder(event.target.value);
+    };
+
+    const handleChangeValue = (event) => {
+        setValue(event.target.value);
     };
 
     const sortClick = async (event) => {
@@ -54,13 +53,25 @@ const AllMovie = () => {
         const resMovie = async () => await Api.getAllMovie(order);
         const movieBody = await resMovie();
         setGetBody(movieBody.data.data.content);
+        console.log(movieBody);
     };
 
-    const searchClick = async (event) => {
+    const titleClick = async (event) => {
         // 검색 button 클릭 시에, 일단 영화제목이랑 영화배우를 담아 get해오기
-        const resMovie = async () => await Api.getAllMovie(movieTitle, movieActor);
+        const resMovie = async () => await Api.getMovieTitle(order, movieTitle);
         const movieBody = await resMovie();
         setGetBody(movieBody.data.data.content);
+        console.log("제목:",movieBody);
+        setMovieTitle('');
+    };
+
+    const actorClick = async (event) => {
+        // 검색 button 클릭 시에, 일단 영화제목이랑 영화배우를 담아 get해오기
+        const resMovie = async () => await Api.getMovieActor(order, movieActor);
+        const movieBody = await resMovie();
+        setGetBody(movieBody.data.data.content);
+        console.log("배우:",movieBody);
+        setMovieActor('');
     };
 
     return (
@@ -72,10 +83,12 @@ const AllMovie = () => {
 
                         <Divider variant="middle" />
 
+                        {/* 여기는 정렬관련 코드 */}
+
                         <Box class="movieChartBeScreen_btn_wrap" sx={{ display: "block" }}>
                             <Grid container spacing={1} >
                                 <Grid item >
-                                    <Box sx={{ paddingTop: "30px", paddingBottom: "30px", minWidth: 200, maxWidth: 300 }}>
+                                    <Box sx={{ paddingTop: "30px", marginBottom: "30px", minWidth: 210 }}>
                                         <FormControl fullWidth >
                                             <InputLabel id="demo-simple-select-label" >정렬순</InputLabel>
                                             <Select
@@ -85,8 +98,8 @@ const AllMovie = () => {
                                                 label="정렬순"
                                                 onChange={handleChange}
                                             >
-                                                <MenuItem value={10}>예매율순</MenuItem>
-                                                <MenuItem value={20}>평점순</MenuItem>
+                                                <MenuItem value='ticketRate,des'>예매율순</MenuItem>
+                                                <MenuItem value='rate,des'>평점순</MenuItem>
                                             </Select>
                                         </FormControl>
                                     </Box>
@@ -97,7 +110,7 @@ const AllMovie = () => {
                                             variant="contained"
                                             color="grey"
                                             size='large'
-                                            style={{ padding: "15px 0px", marginLeft: "10px" }}
+                                            style={{ padding: "15px 0px", marginLeft: "3px" }}
                                             onClick={sortClick}
                                         >
                                             <SearchIcon />
@@ -107,28 +120,64 @@ const AllMovie = () => {
                             </Grid>
                         </Box>
 
-                        <Box sx={{ paddingBottom: "30px" }}>
-                            <Grid container spacing={1} >
-                                <Grid item sx={{ width: '220px' }}>
-                                    <TextField id="filled-basic" label="영화제목" variant="outlined"
-                                        onChange={(event) => setMovieTitle(event.target.value)} />
+                        {/* 여기는 검색관련 코드 */}
 
-                                </Grid>
-                                <Grid item>
-                                    <TextField id="filled-basic" label="영화배우" variant="outlined"
-                                        onChange={(event) => setMovieActor(event.target.value)} />
-                                </Grid>
-                                <Grid item >
-                                    <Button
-                                        variant="contained"
-                                        color="grey"
-                                        size='large'
-                                        style={{ padding: "15px 0px", marginLeft: "10px" }}
-                                        onClick={searchClick}
-                                    >
-                                        <SearchIcon />
-                                    </Button>
-                                </Grid>
+                        <Box sx={{ paddingBottom: "30px" }}>
+                            <FormControl>
+                                <FormLabel id="demo-controlled-radio-buttons-group">원하는 검색 종류를 선택해주세요!</FormLabel>
+                                <RadioGroup
+                                    aria-labelledby="demo-controlled-radio-buttons-group"
+                                    name="controlled-radio-buttons-group"
+                                    value={value}
+                                    onChange={handleChangeValue}
+                                >
+                                    <FormControlLabel value="영화제목" control={<Radio />} label="영화제목" />
+                                    <FormControlLabel value="영화배우" control={<Radio />} label="영화배우" />
+                                </RadioGroup>
+                            </FormControl>
+
+                            <Grid container spacing={1} >
+                                {(value === "영화제목") ? (
+                                    <>
+                                        <Grid item sx={{ width: '220px' }}>
+                                            <TextField id="filled-basic" label="영화제목" variant="outlined"
+                                                onChange={(event) => setMovieTitle(event.target.value)} />
+
+                                        </Grid>
+                                        <Grid item >
+                                            <Button
+                                                variant="contained"
+                                                color="grey"
+                                                size='large'
+                                                style={{ padding: "15px 0px", marginLeft: "3px", marginRight: "10px" }}
+                                                onClick={titleClick}
+                                            >
+                                                <SearchIcon />
+                                            </Button>
+                                        </Grid></>
+
+                                ) : (
+                                    <>
+                                        <Grid item>
+                                            <TextField id="filled-basic" label="영화배우" variant="outlined"
+                                                onChange={(event) => setMovieActor(event.target.value)} />
+                                        </Grid>
+                                        <Grid item >
+                                            <Button
+                                                variant="contained"
+                                                color="grey"
+                                                size='large'
+                                                style={{ padding: "15px 0px", marginLeft: "3px" }}
+                                                onClick={actorClick}
+                                            >
+                                                <SearchIcon />
+                                                배우
+                                            </Button>
+                                        </Grid>
+                                    </>
+                                )}
+
+
                             </Grid>
                         </Box>
 

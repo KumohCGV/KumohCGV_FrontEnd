@@ -78,29 +78,19 @@ const Api = {
     pageCount: 3,
 
     // 로그인
-    postLogin: async (email, password) => {
-        return await postJsonReqest('/auth/login', {
-            email,
-            password
+    postLogin: async (loginId, password) => {
+        return await postJsonReqest('/signin', {
+            loginId,
+            password,
         });
     },
     // 로그아웃
     postLogout: async () => {
         return await postJsonReqest('/auth/logout', null);
     },
-    // 이메일 인증 번호 전송
-    postEmail: async (email) => {
-        return await postJsonReqest('/auth/sendmail', { email }
-        );
-    },
-    // 이메일 인증 번호 확인
-    postAuthEmail: async (email, authkey) => {
-        console.log(email, authkey)
-        return await postJsonReqest('/auth/authmail', { email, authkey });
-    },
     // 회원가입
     postSignup: async (info) => {
-        return await postJsonReqest('/auth/signup', info);
+        return await postJsonReqest('/signup', info);
     },
     // 회원탈퇴
     getWithdrawal: async () => {
@@ -109,8 +99,8 @@ const Api = {
 
     // movie------------------------------------------------------------------------------------
     // 상영 영화 리스트 조회
-    getNowMovie: async (page, size) => {
-        return await getRequest(`/films/now?`, { page, size });
+    getNowMovie: async (page, size, sort) => {
+        return await getRequest(`/films/now?`, { page, size, sort });
     },
     // 영화 상세 조회
     getMovieDetail: async (filmId) => {
@@ -124,20 +114,61 @@ const Api = {
     getAllMovie: async (sort) => {
         return await getRequest(`/films?`, { sort });
     },
+    // 전체 영화 리스트 조회 + 영화제목
+    getMovieTitle: async (sort, title) => {
+        return await getRequest(`/films?`, { sort, title });
+    },
+    // 전체 영화 리스트 조회 + 영화배우
+    getMovieActor: async (sort, actor) => {
+        return await getRequest(`/films?`, { sort, actor });
+    },
+    // 영화 댓글 조회
+    getReadComment: async (filmsId) => {
+        return await getRequest(`/films/${filmsId}/comments`);
+    },
+    // 영화 댓글 수정
+    getUpdateComment: async (filmsId, commentId, data) => {
+        console.log(filmsId, commentId, data);
+        return await putJsonReqest(`/films/${filmsId}/comments/${commentId}`, data);
+    },
+    // 영화 댓글 삭제
+    getDeleteComment: async (filmsId, commentId) => {
+        return await deleteJsonReqest(`/films/${filmsId}/comments/${commentId}`);
+    },
+    // 영화 댓글 작성
+    getCreateComment: async (filmsId, data) => {
+        return await postJsonReqest(`/films/${filmsId}/comments/write`, data);
+    },
+    // Mypage--------------------------------------------------------------------------------
+    // 내 정보 조회
+    getInfo: async () => {
+        return await getRequest(`/myinfo`);
+    },
+    // 내 예매 내역
+    getReservation: async () => {
+        return await getRequest(`/myticket`);
+    },
+    
+    // Ticket--------------------------------------------------------------------------------
+    // 선택한 영화의 상영 정보 리스트 조회
+    getScreen: async (filmId) => {
+        return await getRequest(`/screening?`, {filmId});
+    },
+    // 선택한 상영의 상세정보 조회
+    getScreenDetail: async (screeningId) => {
+        return await getRequest(`/screening/${screeningId}`);
+    },
+    // 예매
+    postTickets: async (ticket) => {
+        return await postJsonReqest('/ticket', ticket);
+    },
 
     // likes------------------------------------------------------------------------------------
-    // 좋아요 여부 확인
-    getBoardIsLike: async (boardId) => {
-        return await getRequest(`/board/islike?`, { boardId });
+    // 댓글 좋아요
+    getCommentLike: async (filmsId, commentId) => {
+        return await postJsonReqest(`/films/${filmsId}/comments/${commentId}/like`);
     },
-    // 좋아요
-    getBoardLike: async (boardId) => {
-        return await postJsonReqest(`/board/like`, { boardId });
-    },
-    // 좋아요 취소
-    getBoardUnlike: async (boardId) => {
-        return await postJsonReqest(`/board/unlike`, { boardId });
-    },
+
 
 };
 

@@ -30,18 +30,21 @@ const MovieDetail = () => {
 
     const [detail, setDetail] = useState('');
     const [statis, setStatis] = useState('');
+    const [comment, setComment] = useState([]);
 
     const resDetail = async () => await Api.getMovieDetail(movieId);
     const resStatis = async () => await Api.getMovieStatistic(movieId);
+    const resComment = async () => await Api.getReadComment(movieId);
 
     useEffect(() => {
         const getData = async () => {
             const detailBody = await resDetail();
             const statisBody = await resStatis();
+            const commentBody = await resComment();
             console.log(detailBody);
-            console.log(statisBody);
             setDetail(detailBody.data.data);
             setStatis(statisBody.data.data);
+            setComment(commentBody.data.data.content);
           }
           getData();
     }, []);
@@ -146,7 +149,7 @@ const MovieDetail = () => {
 
                     <Box class="comment_contents" >
                         <CreateComment movieId={movieId} />
-                        <ReadComment></ReadComment>
+                        <ReadComment comment={comment} movieId={movieId}></ReadComment>
                     </Box>
                 </Container>
             </ThemeProvider>

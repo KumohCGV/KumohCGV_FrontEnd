@@ -4,8 +4,6 @@ import { Grid, Card, CardContent } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import { base_url } from 'API/Url';
 
-// const default_url = base_url + "/image/notfound.png";
-
 const theme = createTheme({
     palette: {
         primary: {
@@ -23,7 +21,7 @@ const theme = createTheme({
 
 const MovieCardContent = (props) => {
 
-    const { id, title, image, order, rate } = props;
+    const { id, order, title, thumbnail, ticketRate, rating } = props;
 
     return (
         <Grid key={id} item lg={3} md={3} sm={3} xs={3}>
@@ -40,7 +38,7 @@ const MovieCardContent = (props) => {
                         }}
                         style={{ textDecoration: "none", color: "black" }}
                     >
-                        <div id={id + '-row-order'} style={{ backgroundColor: "#ff0000" }}>
+                        <div id={id + '-row-order'} style={{ backgroundColor: "#BF2828" }}>
                             <span style={{ fontSize: "75%", fontWeight: "bold", color: "white" }}>NO. {(order + 1)}</span>
                         </div>
 
@@ -51,7 +49,7 @@ const MovieCardContent = (props) => {
                                 height: '100%',
                             }}>
                             <img
-                                src={base_url + image}
+                                src={base_url + thumbnail}
                                 style={{
                                     width: "100px",
                                     height: "150px",
@@ -65,14 +63,14 @@ const MovieCardContent = (props) => {
                                 display: 'block',
                                 height: '100%'
                             }}>
-                            <div id={id + '-row-title'}>
+                            <div id={id + '-row-title'} style={{ minHeight: "215px" }}>
                                 <span style={{ fontSize: "70%", fontWeight: "bold" }}>{title}</span>
                             </div>
                             <div id={id + '-row-rate'}>
-                                <span style={{ fontSize: "65%" }}>예매율 {(rate*100)}%</span>
+                                <span style={{ fontSize: "60%" }}>예매율 {(ticketRate*100)}%</span>
                             </div>
                             <div id={id + '-row-star'}>
-                                <span style={{ fontSize: "65%" }}>평점 {rate}</span>
+                                <span style={{ fontSize: "60%" }}>평점 {rating}</span>
                             </div>
                         </div>
                     </Link>

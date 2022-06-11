@@ -12,7 +12,7 @@ const theme = createTheme({
             // main: '#F75690',
         },
         secondary: {
-            main: '#ff0000',
+            main: '#BF2828',
         },
         white: {
             main: '#FFFFFF',
@@ -25,7 +25,7 @@ const Main = () => {
     const [getBody, setGetBody] = useState([]);
     const [isLast, setIsLast] = useState();
 
-    const resSlider = async () => await Api.getNowMovie(0, paging_size);
+    const resSlider = async () => await Api.getNowMovie(0, paging_size, "ticketRate,des");
 
     useEffect(() => {
         const getData = async () => {

@@ -1,10 +1,9 @@
 import React from 'react';
 import { Box, Grid } from '@mui/material';
 import MovieCardContent from "components/AllMovie/MovieCardContent"
-import { getBody } from 'components/TestData';
 
 const MovieCard = (props) => {
-    // const getBody = props.getBody;
+    const getBody = props.getBody;
 
     return (
         <>
@@ -18,13 +17,14 @@ const MovieCard = (props) => {
                     }}
                 >
                     {
-                        getBody.data.map((row, i) => (<
+                        getBody.map((row, i) => (<
                             MovieCardContent key={row.id}
                             id={row.id}
-                            title={row.title}
-                            image={row.image}
                             order={i}
-                            rate={row.rate}
+                            title={row.title}
+                            thumbnail={row.thumbnail}
+                            ticketRate={row.ticketRate}
+                            rating={row.rating}
                         />
                         ))
                     }

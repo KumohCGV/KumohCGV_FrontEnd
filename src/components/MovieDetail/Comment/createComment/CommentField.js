@@ -28,24 +28,24 @@ const CommentField = (props) => {
     const [star, setStar] = useState(''); // star
     const [content, setContent] = useState(''); // content
 
-    // movidId, userId, star, content
+    // rating, content
     const commentData = {
-        start: star,
+        rating: star,
         content: content,
     }
 
     const CreateComment = async () => {
 
-        // let response = await Api.postTradeSuccess(commentData, movieId); // API
-        // console.log(response);
+        let response = await Api.getCreateComment(movieId, commentData); // API
+        console.log(response);
 
-        // if (response.data.status) {
-        //     alert('댓글 작성 완료되었습니다.', response.data.status);
-        //     setOpen(false);
-        //     window.location.href = "/detail/"+movieId;
-        // } else {
-        //     alert('댓글 작성 실패하였습니다.', response.data.status);
-        // }
+        if (response.data.status) {
+            alert('댓글 작성 완료되었습니다.', response.data.status);
+            setOpen(false);
+            window.location.href = "/detail/"+movieId;
+        } else {
+            alert('댓글 작성 실패하였습니다.', response.data.status);
+        }
     }
 
     return (

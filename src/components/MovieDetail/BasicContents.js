@@ -19,24 +19,14 @@ const MovieDetail = (props) => {
                         display: "grid",
                         paddingRight: 5,
                     }}>
-                    {(detail.thumbnail != null) ?
                         <img
-                            src={base_url + detail.thumbnail}
-                            style={{
-                                width: "220px",
-                                height: "290px",
-                                objectFit: "cover"
-                            }}
-                        /> :
-                        <img
-                            src={default_url}
+                            src={detail.thumbnail}
                             style={{
                                 width: "220px",
                                 height: "290px",
                                 objectFit: "cover"
                             }}
                         />
-                    }
                 </div>
                 <div
                     style={{
