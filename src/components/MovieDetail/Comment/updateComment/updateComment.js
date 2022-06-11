@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Button, Box, Modal } from '@mui/material';
 import CommentField from "components/MovieDetail/Comment/updateComment/CommentField"
 
@@ -18,11 +17,11 @@ const style = {
  };
 
 const UpdateComment = (props) => {
-   const { content, star } = props;
+   const { content, rating, movieId, id } = props;
  
     // 모달 관련 변수, 함수 정의
     const [open, setOpen] = React.useState(false);
-    async function handleOpen(board_id) {
+    async function handleOpen() {
        setOpen(true);
     }
     const handleClose = () => setOpen(false);
@@ -41,7 +40,7 @@ const UpdateComment = (props) => {
               aria-describedby="modal-modal-description"
            >
               <Box sx={style}>
-                 <CommentField content={content} star={star} setOpen={setOpen}></CommentField>
+                 <CommentField content={content} rating={rating} setOpen={setOpen} movieId={movieId} id={id}></CommentField>
               </Box>
            </Modal>
      </>

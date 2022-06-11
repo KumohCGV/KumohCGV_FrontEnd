@@ -23,30 +23,32 @@ const StyledContainer = styled.div`
 
 const CommentField = (props) => {
     const base_content = props.content;
-    const base_star = props.star;
+    const base_star = props.rating;
     const setOpen = props.setOpen;
+    const movieId = props.movieId;
+    const id = props.id;
 
     const [content, setContent] = useState(base_content); // content
     const [star, setStar] = useState(base_star); // star
 
     // movidId, userId, star, content
     const commentData = {
-        star: star,
+        rating: star,
         content: content,
     }
 
     const UpdateComment = async () => {
 
-        // let response = await Api.postTradeSuccess(commentData, movieId); // API
-        // console.log(response);
+        let response = await Api.getUpdateComment(movieId, id, commentData); // API
+        console.log(response);
 
-        // if (response.data.status) {
-        //     alert('댓글 작성 완료되었습니다.', response.data.status);
-        //     setOpen(false);
-        //     window.location.href = "/detail/"+movieId;
-        // } else {
-        //     alert('댓글 작성 실패하였습니다.', response.data.status);
-        // }
+        if (response.data.status) {
+            alert('댓글 작성 완료되었습니다.', response.data.status);
+            setOpen(false);
+            window.location.href = "/detail/"+movieId;
+        } else {
+            alert('댓글 작성 실패하였습니다.', response.data.status);
+        }
     }
 
     return (

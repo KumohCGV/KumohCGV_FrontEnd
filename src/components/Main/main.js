@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Container, Button} from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Slider from "components/Main/Slider"
-import { getBody } from 'components/TestData';
+// import { getBody } from 'components/TestData';
+import Api from 'API/Api';
 
 const theme = createTheme({
     palette: {
@@ -11,7 +12,7 @@ const theme = createTheme({
             // main: '#F75690',
         },
         secondary: {
-            main: '#F75690',
+            main: '#BF2828',
         },
         white: {
             main: '#FFFFFF',
@@ -20,6 +21,22 @@ const theme = createTheme({
 });
 
 const Main = () => {
+    const paging_size = 5;
+    const [getBody, setGetBody] = useState([]);
+    const [isLast, setIsLast] = useState();
+
+    const resSlider = async () => await Api.getNowMovie(0, paging_size, "ticketRate,des");
+
+    useEffect(() => {
+        const getData = async () => {
+            const resBody = await resSlider();
+            setGetBody(resBody.data.data.content);
+            setIsLast(resBody.data.data.last);
+            console.log(resBody);
+          }
+          getData();
+    }, []);
+
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -27,13 +44,13 @@ const Main = () => {
                     <Box class="contents">
                         <Box class="movieChartBeScreen_btn_wrap" sx={{ display: "block" }}>
                             <h3>
-                                <a href="#none" style={{ textDecoration: 'none', color: "black" }}>현재상영작</a>
+                                <a href="/" style={{ textDecoration: 'none', color: "black" }}>현재상영작</a>
                             </h3>
                             <a href="/allmovie" style={{ textDecoration: 'none', color: "black", float: "right" }}>
                                 <Button color="secondary" variant="contained" sx={{ marginBottom: 2 }}>전체보기</Button>
                             </a>
                         </Box>
-                        <Slider arr={getBody.data}></Slider>
+                        <Slider getBody={getBody} setGetBody={setGetBody} isLast={isLast} setIsLast={setIsLast}></Slider>
                     </Box>
                 </Container>
             </ThemeProvider >

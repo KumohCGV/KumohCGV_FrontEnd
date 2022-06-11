@@ -1,11 +1,10 @@
 import React from 'react';
-import styled from "styled-components";
 import { Box, Grid } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import MovieCardContent from "components/AllMovie/MovieCardContent"
-import { getBody } from 'components/TestData';
 
-const MovieCard = () => {
+const MovieCard = (props) => {
+    const getBody = props.getBody;
+
     return (
         <>
             <Box pb={2}>
@@ -18,13 +17,14 @@ const MovieCard = () => {
                     }}
                 >
                     {
-                        getBody.data.map((row, i) => (<
+                        getBody.map((row, i) => (<
                             MovieCardContent key={row.id}
                             id={row.id}
-                            title={row.title}
-                            image={row.image}
                             order={i}
-                            rate={row.rate}
+                            title={row.title}
+                            thumbnail={row.thumbnail}
+                            ticketRate={row.ticketRate}
+                            rating={row.rating}
                         />
                         ))
                     }
