@@ -147,7 +147,7 @@ function Slider(props) {
                                     onMouseLeave={handleMouseLeave}>
                                     <Link to={{
                                         pathname: `/detail/${img.id}`,
-                                        state: { index: img.id }
+                                        state: img.id
                                     }}
                                         style={{ textDecoration: "none", color: "black" }}>
                                         <Box sx={{ paddingTop: "100px" }}>
@@ -156,8 +156,8 @@ function Slider(props) {
 
                                     </Link>
                                     <Link to={{
-                                        pathname: `/detail/${img.id}`,
-                                        state: { index: img.id }
+                                        pathname: `/ticket`,
+                                        state: img.id
                                     }}
                                         style={{ textDecoration: "none", color: "black" }}>
                                         <Box sx={{ paddingTop: "10px" }}>
