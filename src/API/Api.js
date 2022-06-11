@@ -78,10 +78,10 @@ const Api = {
     pageCount: 3,
 
     // 로그인
-    postLogin: async (email, password) => {
-        return await postJsonReqest('/auth/login', {
-            email,
-            password
+    postLogin: async (loginId, password) => {
+        return await postJsonReqest('/signin', {
+            loginId,
+            password,
         });
     },
     // 로그아웃
@@ -100,7 +100,7 @@ const Api = {
     },
     // 회원가입
     postSignup: async (info) => {
-        return await postJsonReqest('/auth/signup', info);
+        return await postJsonReqest('/signup', info);
     },
     // 회원탈퇴
     getWithdrawal: async () => {
@@ -110,19 +110,25 @@ const Api = {
     // Mypage--------------------------------------------------------------------------------
     // 내 정보 조회
     getInfo: async () => {
-        return await getRequest(`/mypage/my-info`);
+        return await getRequest(`/myinfo`);
     },
-    // 내 정보 수정
-    postUpdateMyInfo: async (userId, user) => {
-        return await postJsonReqest(`/mypage/${userId}`, user);
+    // 내 예매 내역
+    getReservation: async () => {
+        return await getRequest(`/myticket`);
     },
-    // 내가 쓴 글 조회
-    getMyPost: async () => {
-        return await getRequest(`/mypage/post`);
+    
+    // Ticket--------------------------------------------------------------------------------
+    // 선택한 영화의 상영 정보 리스트 조회
+    getScreen: async (filmId) => {
+        return await getRequest(`/screening?`, {filmId});
     },
-    // 거래 내역 조회
-    getTransaction: async () => {
-        return await getRequest(`/mypage/history`);
+    // 선택한 상영의 상세정보 조회
+    getScreenDetail: async (screeningId) => {
+        return await getRequest(`/screening/${screeningId}`);
+    },
+    // 예매
+    postTickets: async (ticket) => {
+        return await postJsonReqest('/ticket', ticket);
     },
 
     // RoomBoards--------------------------------------------------------------------------------
