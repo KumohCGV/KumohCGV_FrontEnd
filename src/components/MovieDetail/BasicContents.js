@@ -1,21 +1,17 @@
 import React from 'react';
-import styled from "styled-components";
-import { Link } from 'react-router-dom';
-import { Button, Box, Grid, Container, CardContent, Card } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Button, Grid } from '@mui/material';
 import { base_url } from 'API/Url';
 
 const default_url = base_url + "/image/notfound.png";
 
 const MovieDetail = (props) => {
-    const id = props.id;
-    const image = props.image;
+    const detail = props.detail;
 
     return (
         <>
-            <Grid key={id} item lg={12} md={12} sm={12} xs={12} sx={{ marginTop: 5, marginBottom: "100px" }}>
+            <Grid key={detail.id} item lg={12} md={12} sm={12} xs={12} sx={{ marginTop: 5, marginBottom: "100px" }}>
 
-                <div id={id + '-row-image'}
+                <div id={detail.id + '-row-image'}
                     style={{
                         float: 'left',
                         width: '20%',
@@ -23,9 +19,9 @@ const MovieDetail = (props) => {
                         display: "grid",
                         paddingRight: 5,
                     }}>
-                    {(image != null) ?
+                    {(detail.thumbnail != null) ?
                         <img
-                            src={image}
+                            src={base_url + detail.thumbnail}
                             style={{
                                 width: "220px",
                                 height: "290px",
@@ -47,28 +43,30 @@ const MovieDetail = (props) => {
                         display: 'block',
                         height: '100%'
                     }}>
-                    <div id={id + '-row-title'} style={{ paddingTop: "30px" }}>
-                        <span style={{ fontSize: "22px", fontWeight: "bold" }}>제목</span>
+                    <div id={detail.id + '-row-title'} style={{ paddingTop: "30px" }}>
+                        <span style={{ fontSize: "22px", fontWeight: "bold" }}>{detail.title}</span>
                     </div>
-                    <div id={id + '-row-rate'} style={{ marginTop: "10px" }}>
-                        <span style={{ fontSize: "15px" }}>예매율</span>
+                    <div id={detail.id + '-row-rate'} style={{ marginTop: "10px" }}>
+                        <span style={{ fontSize: "15px" }}>예매율 {detail.ticketRate}</span>
                     </div>
-                    <div id={id + '-row-star'} style={{ marginTop: "10px" }}>
-                        <span style={{ fontSize: "15px" }}>평점</span>
+                    <div id={detail.id + '-row-star'} style={{ marginTop: "10px" }}>
+                        <span style={{ fontSize: "15px" }}>평점 {detail.rating}</span>
                     </div>
-                    <div id={id + '-row-writer'} style={{ marginTop: "10px" }}>
-                        <span style={{ fontSize: "15px" }}>감독 : 고레에다 히로카즈 / 배우 :
-                            송강호 ,  강동원 ,  배두나 ,  이지은 ,  이주영</span>
+                    <div id={detail.id + '-row-writer'} style={{ marginTop: "10px" }}>
+                        <span style={{ fontSize: "15px" }}>감독 : {detail.director} / 
+                        배우 : {detail.actor}</span>
                     </div>
-                    <div id={id + '-row-genre'}>
-                        <span style={{ fontSize: "15px" }}>장르 : 드라마 / 기본 :
-                            12세 이상, 129분, 한국</span>
+                    <div id={detail.id + '-row-genre'}>
+                        <span style={{ fontSize: "15px" }}>장르 : 드라마 / 
+                        러닝타임 : {detail.movieDuration}분</span>
                     </div>
-                    <div id={id + '-row-genre'}>
-                        <span style={{ fontSize: "15px" }}>개봉 :
-                            2022.06.08</span>
+                    <div id={detail.id + '-row-genre'}>
+                        <span style={{ fontSize: "15px" }}>개봉 : {detail.releaseDate}</span>
                     </div>
-                    <div id={id + 'button'} style={{ marginTop: "15px" }}>
+                    <div id={detail.id + '-row-rate'} style={{ marginTop: "20px" }}>
+                        <span style={{ fontSize: "15px" }}>내용 : {detail.description}</span>
+                    </div>
+                    <div id={detail.id + 'button'} style={{ marginTop: "15px" }}>
                         <Button variant="contained" color="secondary" style={{ fontSize: "15px" }}>예매하기</Button>
                     </div>
                 </div>

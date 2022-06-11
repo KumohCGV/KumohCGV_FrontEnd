@@ -107,56 +107,22 @@ const Api = {
         return await deleteJsonReqest('/user');
     },
 
-    // Mypage--------------------------------------------------------------------------------
-    // 내 정보 조회
-    getInfo: async () => {
-        return await getRequest(`/mypage/my-info`);
+    // movie------------------------------------------------------------------------------------
+    // 상영 영화 리스트 조회
+    getNowMovie: async (page, size) => {
+        return await getRequest(`/films/now?`, { page, size });
     },
-    // 내 정보 수정
-    postUpdateMyInfo: async (userId, user) => {
-        return await postJsonReqest(`/mypage/${userId}`, user);
+    // 영화 상세 조회
+    getMovieDetail: async (filmId) => {
+        return await getRequest(`/films/${filmId}`);
     },
-    // 내가 쓴 글 조회
-    getMyPost: async () => {
-        return await getRequest(`/mypage/post`);
+    // 영화 통계 조회
+    getMovieStatistic: async (filmId) => {
+        return await getRequest(`/films/statistics?`, { filmId });
     },
-    // 거래 내역 조회
-    getTransaction: async () => {
-        return await getRequest(`/mypage/history`);
-    },
-
-    // RoomBoards--------------------------------------------------------------------------------
-    // 방 양도 글 등록
-    postRoomBoard: async (board) => {
-        return await postJsonReqest('/board/new', board);
-    },
-    // 방 양도 글 수정
-    postUpdateRoomBoard: async (boardId, board) => {
-        return await postJsonReqest(`/roomboard/${boardId}`, board);
-    },
-    // 방 양도 글 삭제
-    deleteRoomBoard: async (boardId) => {
-        return await deleteJsonReqest(`/board/${boardId}`);
-    },
-    // 방 양도 글 상세조회
-    getRoomBoard: async (board_id) => {
-        return await getRequest(`/board/${board_id}`);
-    },
-    // 방 양도 글 전체조회 {장단기,날짜선택,가격(시작, 끝, 둘다 null)}
-    getAllRoomBoard: async (data) => {
-        return await getRequest(`/board/list?`, data);
-    },
-    // 방 양도 글 거래 완료를 위한 거래자 목록 요청
-    getBuyerList: async (boardId) => {
-        return await getRequest(`/board/${boardId}/buyer`);
-    },
-    // 방 양도 글 거래 완료 요청
-    postTradeSuccess: async (trade, boardId) => {
-        return await postJsonReqest(`/board/${boardId}/complete`, trade);
-    },
-    // 거래 가격 정보 요청
-    getPriceTable: async (trade) => {
-        return await getRequest('', trade);
+    // 전체 영화 리스트 조회
+    getAllMovie: async (sort) => {
+        return await getRequest(`/films?`, { sort });
     },
 
     // likes------------------------------------------------------------------------------------
@@ -171,19 +137,6 @@ const Api = {
     // 좋아요 취소
     getBoardUnlike: async (boardId) => {
         return await postJsonReqest(`/board/unlike`, { boardId });
-    },
-    // 사용자의 좋아요한 양도 글 리스트 조회
-    getLikedProject: async () => {
-        return await getRequest(`/mypage/like-boards`);
-    },
-
-    // Files--------------------------------------------------------------------------------------
-    getReadFile: async (fileData) => {
-        return await postFormReqest(`/file/upload`, fileData);
-    },
-
-    deleteFile: async (pk_id) => {
-        return await deleteJsonReqest(`/file/delete/${pk_id}`);
     },
 
 };

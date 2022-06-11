@@ -1,7 +1,5 @@
 import React from 'react';
-import styled from "styled-components";
 import { Box, Grid } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CommentCardContent from 'components/MovieDetail/Comment/readComment/CommentCardContent';
 import { commentList } from 'components/TestData';
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Button, Box, Modal } from '@mui/material';
 import CommentField from "components/MovieDetail/Comment/createComment/CommentField"
 
@@ -18,7 +17,6 @@ const style = {
  };
 
 const CreateComment = (props) => {
-    const title = props.title;
     const movieId = props.movieId;
  
     // 모달 관련 변수, 함수 정의
@@ -43,7 +41,7 @@ const CreateComment = (props) => {
               aria-describedby="modal-modal-description"
            >
               <Box sx={style}>
-                 <CommentField title={title} movieId={movieId} setOpen={setOpen}></CommentField>
+                 <CommentField movieId={movieId} setOpen={setOpen}></CommentField>
               </Box>
            </Modal>
      </>

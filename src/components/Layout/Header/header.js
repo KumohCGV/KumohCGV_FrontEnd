@@ -69,7 +69,7 @@ const Header = () => {
                 {(!(user === null)) ? (
                     <StyledUl>
                         <StyledLi>
-                            <a href='/logout' style={{ textDecoration: 'none'}}>
+                            <a href='/logout' style={{ textDecoration: 'none' }}>
                                 <span>Sign out</span>
                             </a>
                         </StyledLi>

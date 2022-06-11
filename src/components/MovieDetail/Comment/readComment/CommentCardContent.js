@@ -11,6 +11,7 @@ const CommentCardContent = (props) => {
     const myId = 2;
 
     const [bookmark, setBookmark] = useState(isthumb);
+    const [bookCount, setBookCount] = useState(thumbCount);
 
     // 댓글ID, 내ID, 영화ID 주고 좋아요 클릭 여부 변경
     const handleBookmark = async () => {
@@ -23,6 +24,7 @@ const CommentCardContent = (props) => {
 
             // };
             // getdata();
+            setBookCount(bookCount+1);
         } else {
             //   const response = async () => await Api.getBoardUnlike(board_id);
             //     const getdata = async () => {
@@ -30,6 +32,7 @@ const CommentCardContent = (props) => {
             //         console.log(data);
             //     };
             //     getdata();
+            setBookCount(bookCount-1);
         }
         setBookmark(!bookmark);
 
@@ -114,7 +117,7 @@ const CommentCardContent = (props) => {
                                 )}
                             </div>
                             <div id={id + '-row-thumbCount'}>
-                                <span style={{ fontSize: "70%" }}> {thumbCount}</span>
+                                <span style={{ fontSize: "70%" }}> {bookCount}</span>
                             </div>
                         </div>
 

@@ -22,8 +22,7 @@ const StyledContainer = styled.div`
 `;
 
 const CommentField = (props) => {
-    // const title = props.title;
-    // const movieId = props.movieId;
+    const movieId = props.movieId;
     const setOpen = props.setOpen;
 
     const [star, setStar] = useState(''); // star

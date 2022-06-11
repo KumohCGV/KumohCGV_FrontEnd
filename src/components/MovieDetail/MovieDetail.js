@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import Api from 'API/Api';
 import { Box, Grid, Container, Divider } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import BasicContents from "components/MovieDetail/BasicContents"
 import CreateComment from "components/MovieDetail/Comment/createComment/createComment";
 import ReadComment from "components/MovieDetail/Comment/readComment/readComment";
-import { getBody, piechartData, barchartData } from 'components/TestData';
 import { Doughnut, Bar } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, Title, BarElement, LinearScale } from 'chart.js';
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, Title, BarElement, LinearScale);
@@ -23,57 +23,75 @@ const theme = createTheme({
     },
 });
 
-const customPieChart = {
-    plugins: ["남성", "여성"],
-    labels: ["남성", "여성"],
-    datasets: [
-        {
-            labels: ["남성", "여성"],
-            data: [piechartData.data[0].value, piechartData.data[1].value],
-            borderWidth: 2,
-            hoverBorderWidth: 3,
-            backgroundColor: [
-                "rgba(98, 181, 229, 1)",
-                "rgba(238, 102, 121, 1)",
-            ],
-            fill: true
-        }
-    ]
-};
-
-const custombarChart = {
-    plugins: ["10대", "20대", "30대", "40대", "50대"],
-    labels: ["10대", "20대", "30대", "40대", "50대"],
-    datasets: [
-        {
-            labels: ["10대", "20대", "30대", "40대", "50대"],
-            data: [barchartData.data[0].value, barchartData.data[1].value,
-            barchartData.data[2].value, barchartData.data[3].value, barchartData.data[4].value],
-            borderWidth: 2,
-            hoverBorderWidth: 3,
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(255, 205, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-            ],
-            fill: true
-        }
-    ]
-};
 
 const MovieDetail = () => {
-    // 예시
-    const title = "손석구 사랑해요!";
-    const movieId = 1;
+    const movieId = window.location.href
+    .split('/')[window.location.href.split('/').length - 1].split('.')[0];
+
+    const [detail, setDetail] = useState('');
+    const [statis, setStatis] = useState('');
+
+    const resDetail = async () => await Api.getMovieDetail(movieId);
+    const resStatis = async () => await Api.getMovieStatistic(movieId);
+
+    useEffect(() => {
+        const getData = async () => {
+            const detailBody = await resDetail();
+            const statisBody = await resStatis();
+            console.log(detailBody);
+            console.log(statisBody);
+            setDetail(detailBody.data.data);
+            setStatis(statisBody.data.data);
+          }
+          getData();
+    }, []);
+
+    const customPieChart = {
+        plugins: ["남성", "여성"],
+        labels: ["남성", "여성"],
+        datasets: [
+            {
+                labels: ["남성", "여성"],
+                data: [statis.maleRate, statis.femaleRate],
+                borderWidth: 2,
+                hoverBorderWidth: 3,
+                backgroundColor: [
+                    "rgba(98, 181, 229, 1)",
+                    "rgba(238, 102, 121, 1)",
+                ],
+                fill: true
+            }
+        ]
+    };
+    
+    const custombarChart = {
+        plugins: ["10대", "20대", "30대", "40대", "50대"],
+        labels: ["10대", "20대", "30대", "40대", "50대"],
+        datasets: [
+            {
+                labels: ["10대", "20대", "30대", "40대", "50대"],
+                data: [statis.age10Rate, statis.age20Rate,
+                    statis.age30Rate, statis.age40Rate, statis.age50Rate],
+                borderWidth: 2,
+                hoverBorderWidth: 3,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                ],
+                fill: true
+            }
+        ]
+    };
 
     return (
         <>
             <ThemeProvider theme={theme}>
                 <Container fixed sx={{ overflowY: "hidden" }} >
                     <Box class="basic_contents">
-                        <BasicContents getBody={getBody} />
+                        <BasicContents detail={detail} />
                     </Box>
 
                     <Divider variant="middle" />
@@ -127,7 +145,7 @@ const MovieDetail = () => {
                     <Divider variant="middle" />
 
                     <Box class="comment_contents" >
-                        <CreateComment title={title} movieId={movieId} />
+                        <CreateComment movieId={movieId} />
                         <ReadComment></ReadComment>
                     </Box>
                 </Container>

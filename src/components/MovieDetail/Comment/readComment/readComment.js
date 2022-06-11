@@ -1,8 +1,5 @@
 import React from 'react';
-import styled from "styled-components";
-import { Link } from 'react-router-dom';
-import { Button, Box, Grid } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Grid } from '@mui/material';
 import CommentCard from 'components/MovieDetail/Comment/readComment/CommentCard';
 
 

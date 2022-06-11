@@ -149,7 +149,7 @@ export const commentList = {
             "content": "완전 좋았어용! 시리즈 안본게 없네용",
             "star": 4.5,
             "thumb": {
-                "count": 0,
+                "count": 1,
                 "isthumb": true,
             }
         },
@@ -161,7 +161,7 @@ export const commentList = {
             "content": "완전 좋았어용! 시리즈 안본게 없네용",
             "star": 4.5,
             "thumb": {
-                "count": 0,
+                "count": 3,
                 "isthumb": true,
             }
         },
@@ -173,7 +173,7 @@ export const commentList = {
             "content": "완전 좋았어용! 시리즈 안본게 없네용",
             "star": 4.5,
             "thumb": {
-                "count": 0, 
+                "count": 3, 
                 "isthumb": false, 
             }
         },

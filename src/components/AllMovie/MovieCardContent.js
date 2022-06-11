@@ -40,7 +40,7 @@ const MovieCardContent = (props) => {
                         }}
                         style={{ textDecoration: "none", color: "black" }}
                     >
-                        <div id={id + '-row-order'} style={{ backgroundColor: "hotpink" }}>
+                        <div id={id + '-row-order'} style={{ backgroundColor: "#ff0000" }}>
                             <span style={{ fontSize: "75%", fontWeight: "bold", color: "white" }}>NO. {(order + 1)}</span>
                         </div>
 
@@ -66,13 +66,13 @@ const MovieCardContent = (props) => {
                                 height: '100%'
                             }}>
                             <div id={id + '-row-title'}>
-                                <span style={{ fontSize: "75%", fontWeight: "bold" }}>{title}</span>
+                                <span style={{ fontSize: "70%", fontWeight: "bold" }}>{title}</span>
                             </div>
                             <div id={id + '-row-rate'}>
-                                <span style={{ fontSize: "70%" }}>예매율 {rate}</span>
+                                <span style={{ fontSize: "65%" }}>예매율 {(rate*100)}%</span>
                             </div>
-                            <div id={id + '-row-heart'}>
-                                <span style={{ fontSize: "70%" }}>평점 {rate}</span>
+                            <div id={id + '-row-star'}>
+                                <span style={{ fontSize: "65%" }}>평점 {rate}</span>
                             </div>
                         </div>
                     </Link>

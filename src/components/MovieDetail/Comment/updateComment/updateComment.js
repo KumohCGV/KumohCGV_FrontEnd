@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Button, Box, Modal } from '@mui/material';
 import CommentField from "components/MovieDetail/Comment/updateComment/CommentField"
 
