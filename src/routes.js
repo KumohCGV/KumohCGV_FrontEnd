@@ -1,5 +1,5 @@
 import MainLayout from "components/Main/MainLayout";
-import Main from "components/Main/main"
+import Main from "components/Main/Main"
 import AllMovie from "components/AllMovie/AllMovie"
 import SignUp from "components/SignUp/Signup";
 import Login from "components/SignIn/Login";
@@ -9,6 +9,7 @@ import Ticket from "components/Tickets/Ticket";
 import TicketLayout from "components/Tickets/TicketLayout";
 import TicketDetail from "components/Tickets/TicketDetail";
 import Step02 from "components/Tickets/seat";
+import MovieDetail from "components/MovieDetail/MovieDetail"
 
 const routes = [
 
@@ -17,7 +18,8 @@ const routes = [
 		element: <MainLayout />,
 		children: [
 			{ path: "/", element: <Main />},
-			{ path: "allmovie", element: <AllMovie />} 
+			{ path: "allmovie", element: <AllMovie />},
+			{ path: "detail/:id", element: <MovieDetail />} 
 		 ],
    
 	},
