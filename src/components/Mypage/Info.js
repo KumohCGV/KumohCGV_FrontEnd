@@ -65,7 +65,7 @@ const Info = () => {
         }
         getData();
     }, []);
-    /*
+    
     useEffect(() => {
       const getData = async () => {
         const resBody = await responseT();
@@ -74,7 +74,6 @@ const Info = () => {
       }
       getData();
     }, []);
-    */
 
     const FixedList = (props) => {
         return (
@@ -99,7 +98,7 @@ const Info = () => {
                     display: 'block',
                     height: '40px',
                     marginTop: '100px',
-                    marginBottom: '40px',
+                    marginBottom: '30px',
                 }}>마이페이지
                 </Typography>
 
@@ -114,16 +113,23 @@ const Info = () => {
                 <Typography variant='h1' sx={{
                     display: 'block',
                     height: '40px',
-                    marginTop: '30px',
+                    marginTop: '50px',
                     marginBottom: '30px',
                 }}>예매 내역
                 </Typography>
-                <Divider />
                 <List>
                     {
                         transaction.map(row => (
                             <>
                                 <Item key={row.id}>
+                                <FixedList item={postBody.loginId} title="아이디" /> {/* 아이디 필드 */}
+                                <Divider />
+                                <FixedList item={postBody.name} title="이름" /> {/* 이름 필드 */}
+                                <Divider />
+                                <FixedList item={postBody.gender} title="성별" /> {/* 성별 필드 */}
+                                <Divider />
+                                <FixedList item={postBody.age} title="나이" /> {/* 나이 필드 */}
+                                <Divider />
                                     <div
                                         style={{
                                             display: 'block',
@@ -131,14 +137,27 @@ const Info = () => {
                                             height: '100%'
                                         }}
                                     >
-                                        <div id={row.id + '-row-title'}>
-                                            <span>{row.board.title}</span>
+                                        {/* 관람일시 */}
+                                        <div>
+                                            <span>관람 일시 {row.screening.screeningDate}</span>
                                         </div>
-                                        <div id={row.id + '-row-user'}>
-                                            <span style={{ fontSize: 16 }}>{row.price}</span>
+                                        {/* 상영관 */}
+                                        <div>
+                                            <span>상영관 {row.screening.theater.name}</span>
+                                        </div>
+                                        {/* 매수 */}
+                                        <div>
+                                            <span>매수 {row.seatCount}</span>
+                                        </div>
+                                        {/* 좌석 정보 */}
+                                        <div id={row.id + '-row-seats'}>
+                                            <span>관람 좌석 {row.seatNumber[0].row} {row.seatNumber[0].col}</span>
+                                        </div>
+                                        <div id={row.id + '-row-price'}>
+                                            <span style={{ fontSize: 16 }}>가격 {row.price}원</span>
                                         </div>
                                         <div id={row.id + '-row-period'}>
-                                            <span style={{ fontSize: 16 }}>{row.screening.startTime}~{row.screening.endTime}</span>
+                                            <span style={{ fontSize: 16 }}>{row.screening.startTime.substr(0,5)}~{row.screening.endTime.substr(0,5)}</span>
                                         </div>
                                     </div>
                                 </Item>

@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Header from 'components/Layout/Header/header';
 import dayjs from "dayjs";
 import 'dayjs/locale/ko';
+import Api from "API/Api";
 
 const StyledLayout = styled.div`
     padding-top: 80px;
@@ -52,6 +53,15 @@ const Item = styled.li`
 
 const Theater = () => {
     const [postBody, setPostBody] = useState([]);
+    useEffect(() => {
+        const getData = async () => {
+            const resBody = await Api.getTheater(1);
+            console.log(resBody);
+            setPostBody(resBody.data.data);
+        }
+        getData();
+    }, []);
+
     const testBody = [
         {
             grade: 15, //상영등급

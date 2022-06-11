@@ -126,8 +126,13 @@ const Api = {
     getScreenDetail: async (screeningId) => {
         return await getRequest(`/screening/${screeningId}`);
     },
+    // 극장의 상영정보 조회
+    getTheater: async (cinemaId) => {
+        return await getRequest(`/screening/cinema/${cinemaId}`);
+    },
     // 예매
     postTickets: async (ticket) => {
+        console.log(ticket)
         return await postJsonReqest('/ticket', ticket);
     },
 
