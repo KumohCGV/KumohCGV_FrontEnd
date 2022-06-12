@@ -1,8 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button, Grid } from '@mui/material';
-import { base_url } from 'API/Url';
-
-const default_url = base_url + "/image/notfound.png";
 
 const MovieDetail = (props) => {
     const detail = props.detail;
@@ -19,14 +17,15 @@ const MovieDetail = (props) => {
                         display: "grid",
                         paddingRight: 5,
                     }}>
-                        <img
-                            src={detail.thumbnail}
-                            style={{
-                                width: "220px",
-                                height: "290px",
-                                objectFit: "cover"
-                            }}
-                        />
+                    <img
+                        src={detail.thumbnail}
+                        alt={detail.title}
+                        style={{
+                            width: "220px",
+                            height: "290px",
+                            objectFit: "cover"
+                        }}
+                    />
                 </div>
                 <div
                     style={{
@@ -43,12 +42,12 @@ const MovieDetail = (props) => {
                         <span style={{ fontSize: "15px" }}>평점 {detail.rating}</span>
                     </div>
                     <div id={detail.id + '-row-writer'} style={{ marginTop: "10px" }}>
-                        <span style={{ fontSize: "15px" }}>감독 : {detail.director} / 
-                        배우 : {detail.actor}</span>
+                        <span style={{ fontSize: "15px" }}>감독 : {detail.director} /
+                            배우 : {detail.actor}</span>
                     </div>
                     <div id={detail.id + '-row-genre'}>
-                        <span style={{ fontSize: "15px" }}>장르 : 드라마 / 
-                        러닝타임 : {detail.movieDuration}분</span>
+                        <span style={{ fontSize: "15px" }}>장르 : 드라마 /
+                            러닝타임 : {detail.movieDuration}분</span>
                     </div>
                     <div id={detail.id + '-row-genre'}>
                         <span style={{ fontSize: "15px" }}>개봉 : {detail.releaseDate}</span>
@@ -56,9 +55,14 @@ const MovieDetail = (props) => {
                     <div id={detail.id + '-row-rate'} style={{ marginTop: "20px" }}>
                         <span style={{ fontSize: "15px" }}>내용 : {detail.description}</span>
                     </div>
-                    <div id={detail.id + 'button'} style={{ marginTop: "15px" }}>
-                        <Button variant="contained" color="secondary" style={{ fontSize: "15px" }}>예매하기</Button>
-                    </div>
+                    <Link to={{
+                        pathname: `/ticket`,
+                        state: detail.id
+                    }}>
+                        <div id={detail.id + 'button'} style={{ marginTop: "15px" }}>
+                            <Button variant="contained" color="secondary" style={{ fontSize: "15px" }}>예매하기</Button>
+                        </div>
+                    </Link>
                 </div>
 
             </Grid>

@@ -21,14 +21,12 @@ const theme = createTheme({
 });
 
 const AllMovie = () => {
-    const [order, setOrder] = useState('ticketRate,des'); // 정렬순: 예매율순, 평점순
+    const [order, setOrder] = useState('ticketRate,desc'); // 정렬순: 예매율순(ticketRate,des), 평점순(rate,des)
+    const [value, setValue] = useState('영화제목'); // 라디오 버튼: 영화제목, 영화배우
     const [movieTitle, setMovieTitle] = useState('');
     const [movieActor, setMovieActor] = useState('');
 
     const [getBody, setGetBody] = useState([]);
-
-    const [value, setValue] = useState('영화제목');
-
     const resMovie = async () => await Api.getAllMovie(order);
 
     useEffect(() => {
@@ -61,8 +59,7 @@ const AllMovie = () => {
         const resMovie = async () => await Api.getMovieTitle(order, movieTitle);
         const movieBody = await resMovie();
         setGetBody(movieBody.data.data.content);
-        console.log("제목:",movieBody);
-        setMovieTitle('');
+        console.log("제목:", movieBody);
     };
 
     const actorClick = async (event) => {
@@ -70,8 +67,7 @@ const AllMovie = () => {
         const resMovie = async () => await Api.getMovieActor(order, movieActor);
         const movieBody = await resMovie();
         setGetBody(movieBody.data.data.content);
-        console.log("배우:",movieBody);
-        setMovieActor('');
+        console.log("배우:", movieBody);
     };
 
     return (
@@ -98,8 +94,8 @@ const AllMovie = () => {
                                                 label="정렬순"
                                                 onChange={handleChange}
                                             >
-                                                <MenuItem value='ticketRate,des'>예매율순</MenuItem>
-                                                <MenuItem value='rate,des'>평점순</MenuItem>
+                                                <MenuItem value='ticketRate,desc'>예매율순</MenuItem>
+                                                <MenuItem value='rating,desc'>평점순</MenuItem>
                                             </Select>
                                         </FormControl>
                                     </Box>
@@ -132,53 +128,58 @@ const AllMovie = () => {
                                     onChange={handleChangeValue}
                                 >
                                     <FormControlLabel value="영화제목" control={<Radio />} label="영화제목" />
+
+                                    {(value === "영화제목") ? (
+                                        <>
+                                            <Grid container spacing={1} sx={{ marginBottom: "5px" }} >
+                                                <Grid item sx={{ width: '220px' }}>
+                                                    <TextField id="filled-basic-title" label="영화제목" variant="outlined"
+                                                        onChange={(event) => setMovieTitle(event.target.value)} />
+
+                                                </Grid>
+                                                <Grid item >
+                                                    <Button
+                                                        variant="contained"
+                                                        color="grey"
+                                                        size='large'
+                                                        style={{ padding: "15px 0px", marginLeft: "3px", marginRight: "10px" }}
+                                                        onClick={titleClick}
+                                                    >
+                                                        <SearchIcon />
+                                                    </Button>
+                                                </Grid>
+                                            </Grid>
+                                        </>
+                                    ) : (
+                                        <></>
+                                    )}
+
                                     <FormControlLabel value="영화배우" control={<Radio />} label="영화배우" />
+                                    {(value === "영화배우") ? (
+                                        <>
+                                            <Grid container spacing={1} sx={{ marginBottom: "5px" }} >
+                                                <Grid item>
+                                                    <TextField id="filled-basic-actor" label="영화배우" variant="outlined"
+                                                        onChange={(event) => setMovieActor(event.target.value)} />
+                                                </Grid>
+                                                <Grid item >
+                                                    <Button
+                                                        variant="contained"
+                                                        color="grey"
+                                                        size='large'
+                                                        style={{ padding: "15px 0px", marginLeft: "3px" }}
+                                                        onClick={actorClick}
+                                                    >
+                                                        <SearchIcon />
+                                                    </Button>
+                                                </Grid>
+                                            </Grid>
+                                        </>
+                                    ) : (
+                                        <></>
+                                    )}
                                 </RadioGroup>
                             </FormControl>
-
-                            <Grid container spacing={1} >
-                                {(value === "영화제목") ? (
-                                    <>
-                                        <Grid item sx={{ width: '220px' }}>
-                                            <TextField id="filled-basic" label="영화제목" variant="outlined"
-                                                onChange={(event) => setMovieTitle(event.target.value)} />
-
-                                        </Grid>
-                                        <Grid item >
-                                            <Button
-                                                variant="contained"
-                                                color="grey"
-                                                size='large'
-                                                style={{ padding: "15px 0px", marginLeft: "3px", marginRight: "10px" }}
-                                                onClick={titleClick}
-                                            >
-                                                <SearchIcon />
-                                            </Button>
-                                        </Grid></>
-
-                                ) : (
-                                    <>
-                                        <Grid item>
-                                            <TextField id="filled-basic" label="영화배우" variant="outlined"
-                                                onChange={(event) => setMovieActor(event.target.value)} />
-                                        </Grid>
-                                        <Grid item >
-                                            <Button
-                                                variant="contained"
-                                                color="grey"
-                                                size='large'
-                                                style={{ padding: "15px 0px", marginLeft: "3px" }}
-                                                onClick={actorClick}
-                                            >
-                                                <SearchIcon />
-                                                배우
-                                            </Button>
-                                        </Grid>
-                                    </>
-                                )}
-
-
-                            </Grid>
                         </Box>
 
                         <Divider variant="middle" />

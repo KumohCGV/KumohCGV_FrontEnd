@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Card, CardContent } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
-import { base_url } from 'API/Url';
 
 const theme = createTheme({
     palette: {
@@ -20,7 +19,6 @@ const theme = createTheme({
 });
 
 const MovieCardContent = (props) => {
-
     const { id, order, title, thumbnail, ticketRate, rating } = props;
 
     return (
@@ -49,10 +47,11 @@ const MovieCardContent = (props) => {
                                 height: '100%',
                             }}>
                             <img
-                                src={base_url + thumbnail}
+                                src={thumbnail}
+                                alt={title}
                                 style={{
-                                    width: "100px",
-                                    height: "150px",
+                                    width: "170px",
+                                    height: "220px",
                                     objectFit: "cover"
                                 }}
                             />

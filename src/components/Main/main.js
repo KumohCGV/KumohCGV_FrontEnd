@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Box, Container, Button} from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Slider from "components/Main/Slider"
-// import { getBody } from 'components/TestData';
 import Api from 'API/Api';
 
 const theme = createTheme({
@@ -25,7 +24,7 @@ const Main = () => {
     const [getBody, setGetBody] = useState([]);
     const [isLast, setIsLast] = useState();
 
-    const resSlider = async () => await Api.getNowMovie(0, paging_size, "ticketRate,des");
+    const resSlider = async () => await Api.getNowMovie(0, paging_size, "ticketRate,desc");
 
     useEffect(() => {
         const getData = async () => {
