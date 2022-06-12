@@ -59,17 +59,14 @@ export default function Login({location, history}) {
     }
 
     let response = await Api.postLogin(postBody.loginId, postBody.password);
-    console.log(response)
 
     if (response.data.status === "success") {
-      const target = '/';
       sessionStorage.setItem('user', JSON.stringify(response.data.data, ['accessToken', 'refreshToken']))
-      window.location.href = target;
-      // if (!window.location.state?.from) {
-      //   history.push('/');
-      // } else {
-      //   history.push(window.location.state.from);
-      // }
+      if (window.history.state.idx === 0) {
+        window.location.href = '/';
+      } else {
+        window.location.href = '/ticket';
+      }
     }
     else if(response.data.status === "fail") {
       alert('로그인 실패');

@@ -16,6 +16,7 @@ const Ticket = () => {
         setSelectedIndex(index);
 
         const response = await Api.getScreen(index);
+        console.log(response.data.data)
         setFilmBody(response.data.data)
     };
 

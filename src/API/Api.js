@@ -148,7 +148,15 @@ const Api = {
     getReservation: async () => {
         return await getRequest(`/myticket`);
     },
-    
+    // AdminPage--------------------------------------------------------------------------------
+    // 관리자 상영 내역 조회
+    getAdminScreen: async () => {
+        return await getRequest(`/admin/movie/list`);
+    },
+    // 관리자 상영 할인 적용
+    postDiscount: async (discount) => {
+        return await postJsonReqest(`/admin/movie/discount`, discount);
+    },
     // Ticket--------------------------------------------------------------------------------
     // 선택한 영화의 상영 정보 리스트 조회
     getScreen: async (filmId) => {

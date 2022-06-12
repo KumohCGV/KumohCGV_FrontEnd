@@ -1,4 +1,4 @@
-import { Navigate, Redirect, useLocation } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 
 const PrivateRoutes = (
   {
@@ -6,15 +6,13 @@ const PrivateRoutes = (
     redirectPath = '/login',
     children,
   }) => {
-    const { pathname } = useLocation();
     if (!user) {
-      //return <Navigate to={redirectPath} replace />;
       return (
-        <Redirect
+        <Navigate
           to={{
-            pathname: '/login',
+            pathname: redirectPath,
             state: {
-              from: pathname
+              from: '/ticket'
             }
           }}
         />

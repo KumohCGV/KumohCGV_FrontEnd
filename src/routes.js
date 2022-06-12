@@ -9,7 +9,10 @@ import Ticket from "components/Tickets/Ticket";
 import TicketLayout from "components/Tickets/TicketLayout";
 import TicketDetail from "components/Tickets/TicketDetail";
 import Step02 from "components/Tickets/seat";
-import MovieDetail from "components/MovieDetail/MovieDetail"
+import MovieDetail from "components/MovieDetail/MovieDetail";
+import PrivateRoutes from "access/PrivateRoutes";
+import isLogin from "access/isLogin";
+import AdminScreenPage from "components/AdminPage/AdminPage";
 
 const routes = [
 
@@ -24,7 +27,7 @@ const routes = [
    
 	},
 	{
-		path: "theater",
+		path: "cinema",
 		element: <Theater/>
 	},
 	{
@@ -36,7 +39,7 @@ const routes = [
 		element: <TicketLayout />,
 		children: [
 		  { path: "", element: <Ticket /> },
-		  { path: "detail", element: <TicketDetail /> }
+		  { path: "detail", element: <PrivateRoutes user={isLogin()}><TicketDetail /></PrivateRoutes> }
 		],
 	},
 	{
@@ -50,6 +53,15 @@ const routes = [
 	{
 		path: "mypage",
 		element: <Info />,
+	},
+	{
+		path: "admin",
+		element: <AdminScreenPage />,
+		children: [
+			{ path: "allmovie", element: <AllMovie />},
+			{ path: "detail/:id", element: <MovieDetail />} 
+		 ],
+   
 	},
 
 ];

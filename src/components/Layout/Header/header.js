@@ -69,6 +69,16 @@ const Header = () => {
                 {(!(user === null)) ? (
                     <StyledUl>
                         <StyledLi>
+                            <a href='/allmovie' style={{ textDecoration: 'none'}}>
+                                <span>영화</span>
+                            </a>
+                        </StyledLi>
+                        <StyledLi>
+                            <a href='/cinema' style={{ textDecoration: 'none'}}>
+                                <span>극장</span>
+                            </a>
+                        </StyledLi>
+                        <StyledLi>
                             <a href='/logout' style={{ textDecoration: 'none' }}>
                                 <span>Sign out</span>
                             </a>
