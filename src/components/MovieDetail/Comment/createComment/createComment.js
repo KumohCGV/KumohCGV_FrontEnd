@@ -21,7 +21,7 @@ const CreateComment = (props) => {
  
     // 모달 관련 변수, 함수 정의
     const [open, setOpen] = React.useState(false);
-    async function handleOpen(board_id) {
+    async function handleOpen() {
        setOpen(true);
     }
     const handleClose = () => setOpen(false);

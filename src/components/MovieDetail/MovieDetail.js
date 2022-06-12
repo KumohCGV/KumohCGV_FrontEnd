@@ -41,7 +41,7 @@ const MovieDetail = () => {
             const detailBody = await resDetail();
             const statisBody = await resStatis();
             const commentBody = await resComment();
-            console.log(detailBody);
+            console.log(commentBody);
             setDetail(detailBody.data.data);
             setStatis(statisBody.data.data);
             setComment(commentBody.data.data.content);

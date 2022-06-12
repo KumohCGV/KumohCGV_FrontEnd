@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import styled from "styled-components";
 import Header from 'components/Layout/Header/header';
@@ -29,7 +28,6 @@ const MainLayoutContent = styled.div`
     backgrond-color: white;
 `;
 const MainLayout = () => {
-  const [isMobileNavOpen, setMobileNavOpen] = useState(false);
 
   return (
     <StyledLayout>

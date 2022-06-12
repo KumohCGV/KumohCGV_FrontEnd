@@ -112,7 +112,7 @@ const Api = {
     },
     // 전체 영화 리스트 조회
     getAllMovie: async (sort) => {
-        return await getRequest(`/films?`, { sort });
+        return await getRequest(`/films?`, { sort } );
     },
     // 전체 영화 리스트 조회 + 영화제목
     getMovieTitle: async (sort, title) => {
