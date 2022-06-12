@@ -6,6 +6,7 @@ import qs from "qs";
 const getRequest = async (path, params) => {
     try {
         params = qs.stringify(params);
+        console.log(params);
         const data = await client.get(path + params);
         return data;
     } catch (e) {
@@ -114,9 +115,9 @@ const Api = {
     getAllMovie: async (sort) => {
         return await getRequest(`/films?`, { sort } );
     },
-    // 전체 영화 리스트 조회 + 영화제목
-    getMovieTitle: async (sort, title) => {
-        return await getRequest(`/films?`, { sort, title });
+    // 전체 영화 리스트 조회 + 영화제목 + 영화배우
+    getMovieTitle: async (sort, title, actor) => {
+        return await getRequest(`/films?`, { sort, title, actor });
     },
     // 전체 영화 리스트 조회 + 영화배우
     getMovieActor: async (sort, actor) => {
