@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Box, Modal } from '@mui/material';
 import CommentField from "components/MovieDetail/Comment/createComment/CommentField"
 
@@ -20,7 +20,7 @@ const CreateComment = (props) => {
     const movieId = props.movieId;
  
     // 모달 관련 변수, 함수 정의
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     async function handleOpen() {
        setOpen(true);
     }
