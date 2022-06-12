@@ -8,7 +8,6 @@ import Theater from "components/Theaters/Theater";
 import Ticket from "components/Tickets/Ticket";
 import TicketLayout from "components/Tickets/TicketLayout";
 import TicketDetail from "components/Tickets/TicketDetail";
-import Step02 from "components/Tickets/seat";
 import MovieDetail from "components/MovieDetail/MovieDetail";
 import PrivateRoutes from "access/PrivateRoutes";
 import isLogin from "access/isLogin";
@@ -29,10 +28,6 @@ const routes = [
 	{
 		path: "cinema",
 		element: <Theater/>
-	},
-	{
-		path: "seats",
-		element: <Step02/>
 	},
 	{
 		path: "ticket",
