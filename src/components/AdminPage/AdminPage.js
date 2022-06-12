@@ -33,12 +33,8 @@ const AdminScreenPage = () => {
         getData();
     }, []);
 
-    const [selectedScreen, setSelectedScreen] = useState(0);
-    const [selectedData, setSelectedData] = useState(false);
-    const handleScreen = (event, index) => {
-        setSelectedScreen(index);
-        setSelectedData(true);
-    }
+    const [selectedScreen, setSelectedScreen] = useState();
+
     const now = new Date();
     const tomorrow = new Date(now.setDate(now.getDate() + 1));
     dayjs.locale('ko');
@@ -63,29 +59,7 @@ const AdminScreenPage = () => {
                             <List aria-label="screen folders">
                                 {
                                     postBody.map(t => (
-                                        !(t.restSeatCount === 0) ?
-                                        <ListItemButton
-                                            selected={selectedScreen === t.id}
-                                            onClick={(event) => handleScreen(event, t.id)}
-                                        >
-                                            <ListItemText primary={t.startTime.substr(0, 5)} />
-                                            <div className="info-hall">
-                                                <span>{t.theater.name}</span> | <span>{t.theater.floorCount}층</span> | <span>{t.restSeatCount}석/{t.theater.totalSeat}석</span>
-                                            </div>
-                                            <ImplDiscount screenId={t.id} select={selectedData} setSelect={setSelectedData}/>
-                                        </ListItemButton>
-                                        :
-                                        <ListItemButton
-                                            selected={selectedScreen === t.id}
-                                            disabled='true'
-                                            onClick={(event) => handleScreen(event, t.id)}
-                                        >
-                                            <ListItemText primary={t.startTime.substr(0, 5)} />
-                                            <ListItemText primary="마감" />
-                                            <div className="info-hall">
-                                                <span>{t.theater.name}</span> | <span>{t.theater.floorCount}층</span> | <span>{t.restSeatCount}석/{t.theater.totalSeat}석</span>
-                                            </div>
-                                        </ListItemButton>
+                                        <ImplDiscount screenId={t.id} postBody={t} selectedScreen={selectedScreen} setSelectedScreen={setSelectedScreen} />
                                     ))
                                 }
                             </List>
