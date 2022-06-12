@@ -1,9 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button, Grid } from '@mui/material';
 
 const MovieDetail = (props) => {
     const detail = props.detail;
+    let navigate = useNavigate();
+    const handleButton = () => {
+        navigate('/ticket', { state: detail.id });
+    }
 
     return (
         <>
@@ -55,14 +59,21 @@ const MovieDetail = (props) => {
                     <div id={detail.id + '-row-rate'} style={{ marginTop: "20px" }}>
                         <span style={{ fontSize: "15px" }}>내용 : {detail.description}</span>
                     </div>
-                    <Link to={{
+                    {/* <Link to={{
                         pathname: `/ticket`,
                         state: detail.id
-                    }}>
+                    }}> */}
                         <div id={detail.id + 'button'} style={{ marginTop: "15px" }}>
-                            <Button variant="contained" color="secondary" style={{ fontSize: "15px" }}>예매하기</Button>
+                            <Button 
+                                variant="contained" 
+                                color="secondary" 
+                                style={{ fontSize: "15px" }}
+                                onClick={handleButton}
+                            >
+                                예매하기
+                            </Button>
                         </div>
-                    </Link>
+                    {/* </Link> */}
                 </div>
 
             </Grid>

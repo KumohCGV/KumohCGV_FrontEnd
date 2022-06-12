@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Box } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import styled from 'styled-components';
@@ -46,6 +46,10 @@ const MouseOver = (props) => {
         setMouse('leave');
     };
 
+    let navigate = useNavigate();
+    const handleButton = () => {
+        navigate('/ticket', { state: movieId });
+    }
 
     return (
         <>
@@ -87,15 +91,13 @@ const MouseOver = (props) => {
                             </Box>
 
                         </Link>
-                        <Link to={{
-                            pathname: `/ticket`,
-                            state: movieId
-                        }}
-                            style={{ textDecoration: "none", color: "black" }}>
-                            <Box sx={{ paddingTop: "10px" }}>
-                                <BTN class="btn_detail">예매하기</BTN>
-                            </Box>
-                        </Link>
+                        <Box sx={{ paddingTop: "10px" }}>
+                            <BTN 
+                                class="btn_detail"                                 
+                                onClick={handleButton}
+                            >예매하기</BTN>
+                        </Box>
+                        
                     </div>
                 )}
             </ThemeProvider >

@@ -12,6 +12,7 @@ const seatList = [];
 
 const TicketDetail = () => {
     const { state } = useLocation();
+    console.log(state)
     const [postBody, setPostBody] = useState([]);
     const [price, setPrice] = useState(0);
     const [nowPrice, setNowPrice] = useState(0);
