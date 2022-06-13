@@ -38,9 +38,15 @@ const ImplDiscount = (props) => {
       discountValue: price,
       screeningId: id
    }
-   //조건 검색 버튼 클릭 이벤트
+   //버튼 클릭 이벤트
    const handleButton = async () => {
-      let resBody = await Api.postDiscount(data);
+      let response = await Api.postDiscount(data);
+      if (response.data.status === "success") {
+         alert(response.data.message)
+       }
+       else if(response.data.status === "fail") {
+         alert(response.data.message);
+       }
    };
 
    // 모달 관련 변수, 함수 정의
