@@ -84,6 +84,12 @@ const Ticket = () => {
                         >
                             <ListItemText primary="기생충" />
                         </ListItemButton>
+                        <ListItemButton
+                            selected={selectedIndex === 7}
+                            onClick={(event) => handleListItemClick(event, 7)}
+                        >
+                            <ListItemText primary="버즈 라이트브로커이어" />
+                        </ListItemButton>
                     </List>
                 </div>
             </Grid>
