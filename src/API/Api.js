@@ -112,8 +112,8 @@ const Api = {
         return await getRequest(`/films/statistics?`, { filmId });
     },
     // 전체 영화 리스트 조회
-    getAllMovie: async (sort) => {
-        return await getRequest(`/films?`, { sort } );
+    getAllMovie: async (sort, title, actor) => {
+        return await getRequest(`/films?`, { sort, title, actor } );
     },
     // 전체 영화 리스트 조회 + 영화제목 + 영화배우
     getMovieTitle: async (sort, title, actor) => {

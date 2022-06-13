@@ -48,7 +48,7 @@ const AllMovie = () => {
 
     const sortClick = async (event) => {
         // 예매율순이나 평점순 MenuItem 클릭하면, 일단 api로 get해오기
-        const resMovie = async () => await Api.getAllMovie(order);
+        const resMovie = async () => await Api.getAllMovie(order, movieTitle, movieActor);
         const movieBody = await resMovie();
         setGetBody(movieBody.data.data.content);
         console.log(movieBody);
